@@ -53,8 +53,6 @@
 - 💻 GitHub: [jadarkaribasu02-beep](https://github.com/jadarkaribasu02-beep)
 - 📸 Instagram: [@karibasu02](https://instagram.com/karibasu02)
 
-### 🎯 My Goal
 
-> Learn slowly, build consistently, and keep moving forward.
 
 ⭐ Thanks for visiting my profile!
