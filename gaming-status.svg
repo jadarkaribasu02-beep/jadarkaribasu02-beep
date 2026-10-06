@@ -1,0 +1,166 @@
+<svg width="900" height="420"
+viewBox="0 0 900 420"
+xmlns="http://www.w3.org/2000/svg">
+
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#0b1020"/>
+    <stop offset="100%" stop-color="#15152f"/>
+  </linearGradient>
+
+  <linearGradient id="line" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0%" stop-color="#00eaff"/>
+    <stop offset="100%" stop-color="#9b5cff"/>
+  </linearGradient>
+</defs>
+
+<rect width="900" height="420" rx="25"
+      fill="url(#bg)"
+      stroke="#2d3655"
+      stroke-width="2"/>
+
+<rect x="25" y="25" width="850" height="4"
+      rx="2"
+      fill="url(#line)"/>
+
+<text x="55" y="85"
+      fill="#00eaff"
+      font-family="monospace"
+      font-size="30"
+      font-weight="bold">
+  KARIBASU.EXE
+</text>
+
+<text x="55" y="115"
+      fill="#777f9e"
+      font-family="monospace"
+      font-size="14">
+  GITHUB DEVELOPER PROFILE
+</text>
+
+<text x="55" y="170"
+      fill="#ffffff"
+      font-family="monospace"
+      font-size="20">
+  LEVEL
+</text>
+
+<text x="180" y="170"
+      fill="#00eaff"
+      font-family="monospace"
+      font-size="22"
+      font-weight="bold">
+  8
+</text>
+
+<text x="55" y="210"
+      fill="#ffffff"
+      font-family="monospace"
+      font-size="20">
+  XP
+</text>
+
+<text x="180" y="210"
+      fill="#9b5cff"
+      font-family="monospace"
+      font-size="18">
+  ████░░░░░░ 36%
+</text>
+
+<text x="55" y="260"
+      fill="#8c95b3"
+      font-family="monospace"
+      font-size="16">
+  COMMITS
+</text>
+
+<text x="180" y="260"
+      fill="#ffffff"
+      font-family="monospace"
+      font-size="18">
+  184
+</text>
+
+<text x="55" y="295"
+      fill="#8c95b3"
+      font-family="monospace"
+      font-size="16">
+  REPOSITORIES
+</text>
+
+<text x="180" y="295"
+      fill="#ffffff"
+      font-family="monospace"
+      font-size="18">
+  15
+</text>
+
+<text x="55" y="330"
+      fill="#8c95b3"
+      font-family="monospace"
+      font-size="16">
+  STARS
+</text>
+
+<text x="180" y="330"
+      fill="#ffffff"
+      font-family="monospace"
+      font-size="18">
+  2
+</text>
+
+<text x="55" y="365"
+      fill="#8c95b3"
+      font-family="monospace"
+      font-size="16">
+  FOLLOWERS
+</text>
+
+<text x="180" y="365"
+      fill="#ffffff"
+      font-family="monospace"
+      font-size="18">
+  5
+</text>
+
+<text x="570" y="185"
+      fill="#00eaff"
+      font-family="monospace"
+      font-size="18"
+      font-weight="bold">
+  CLASS
+</text>
+
+<text x="570" y="220"
+      fill="#ffffff"
+      font-family="monospace"
+      font-size="22">
+  JAVA / BACKEND
+</text>
+
+<text x="570" y="280"
+      fill="#00eaff"
+      font-family="monospace"
+      font-size="18"
+      font-weight="bold">
+  STATUS
+</text>
+
+<text x="570" y="315"
+      fill="#ffffff"
+      font-family="monospace"
+      font-size="22">
+  BUILDING...
+</text>
+
+<circle cx="555" cy="308" r="6"
+        fill="#00ff88"/>
+
+<text x="570" y="350"
+      fill="#777f9e"
+      font-family="monospace"
+      font-size="13">
+  SYSTEM ONLINE
+</text>
+
+</svg>
