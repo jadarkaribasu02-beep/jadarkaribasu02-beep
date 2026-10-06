@@ -62,4 +62,3 @@
 ![GitHub Contribution Snake](https://raw.githubusercontent.com/jadarkaribasu02-beep/jadarkaribasu02-beep/gh-pages/github-contribution-grid-snake.svg)
 
 
-![GitHub Contribution Snake](https://raw.githubusercontent.com/jadarkaribasu02-beep/jadarkaribasu02-beep/gh-pages/github-contribution-grid-snake.svg)
