@@ -6,9 +6,22 @@
   <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=24&duration=3000&pause=1000&color=00BFFF&center=true&vCenter=true&width=700&lines=BE+CS+Student;Java+%26+Spring+Boot+Learner;Web+Developer;DSA+Learner;Building+Projects+%F0%9F%9A%80" />
 </p>
 
-BE CS Student | Web Developer
+## 👨‍💻 About Me
 
-I love coding, building projects and solving problems.
+- 🎓 BE CS Student at JIT Davanagere
+- 💻 Interested in Web Development
+- ☕ Currently learning Java
+- 🌱 Exploring Spring Boot and Backend Development
+- 🧠 Practicing DSA
+- 🚀 Building projects and learning every day
+
+## 🛠️ Skills
+
+<p align="center">
+
+<img src="https://skillicons.dev/icons?i=java,python,html,css,js,git,github,vscode,mysql,spring" />
+
+</p>
 
 
 
