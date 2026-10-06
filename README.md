@@ -31,6 +31,33 @@
   >
 </p>
 
+<h2 align="center">🛠️ Tech Stack</h2>
+
+<p align="center">
+
+<img src="https://skillicons.dev/icons?i=java,python,c,html,css,js,git,github,mysql,spring&theme=light" />
+
+</p>
+
+<p align="center">
+  <i>Currently learning Java, Spring Boot & Backend Development.</i>
+</p>
+
+<h2 align="center">📊 GitHub Stats</h2>
+
+<p align="center">
+  <img
+    src="https://github-readme-stats.vercel.app/api?username=jadarkaribasu02-beep&show_icons=true&hide_border=true&bg_color=FFFDF9&title_color=92400E&text_color=4A382D&icon_color=B45309"
+    height="180"
+  />
+  <img
+    src="https://github-readme-stats.vercel.app/api/top-langs/?username=jadarkaribasu02-beep&layout=compact&hide_border=true&bg_color=FFFDF9&title_color=92400E&text_color=4A382D"
+    height="180"
+  />
+</p>
+
+
+
 
 
 ![GitHub Contribution Snake](https://raw.githubusercontent.com/jadarkaribasu02-beep/jadarkaribasu02-beep/gh-pages/github-contribution-grid-snake.svg)
