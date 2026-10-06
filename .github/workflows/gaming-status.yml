@@ -20,17 +20,24 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_USERNAME: jadarkaribasu02-beep
+
         run: |
           python - <<'PY'
           import os
           import json
           import urllib.request
           import urllib.parse
+          from datetime import date, timedelta
 
           username = os.environ["GITHUB_USERNAME"]
           token = os.environ["GH_TOKEN"]
 
+          # ==========================================
+          # GITHUB API
+          # ==========================================
+
           def api(url):
+
               req = urllib.request.Request(
                   url,
                   headers={
@@ -40,16 +47,25 @@ jobs:
                       "User-Agent": "github-actions"
                   }
               )
+
               with urllib.request.urlopen(req) as response:
                   return json.load(response)
 
-          # User information
-          user = api(f"https://api.github.com/users/{username}")
+          # ==========================================
+          # USER INFORMATION
+          # ==========================================
+
+          user = api(
+              f"https://api.github.com/users/{username}"
+          )
 
           repos = user.get("public_repos", 0)
           followers = user.get("followers", 0)
 
-          # Public commit count
+          # ==========================================
+          # PUBLIC COMMITS
+          # ==========================================
+
           query = urllib.parse.urlencode({
               "q": f"author:{username}",
               "per_page": "1"
@@ -61,16 +77,136 @@ jobs:
 
           commits = commit_data.get("total_count", 0)
 
-          # Calculate gaming level
-          level = max(1, commits // 25 + 1)
-          xp = commits % 25
-          xp_percent = int((xp / 25) * 100)
+          # ==========================================
+          # CONTRIBUTION CALENDAR
+          # ==========================================
 
-          # Get repository stars
+          graphql_query = """
+          query($login: String!) {
+            user(login: $login) {
+              contributionsCollection {
+                contributionCalendar {
+                  weeks {
+                    contributionDays {
+                      date
+                      contributionCount
+                    }
+                  }
+                }
+              }
+            }
+          }
+          """
+
+          payload = json.dumps({
+              "query": graphql_query,
+              "variables": {
+                  "login": username
+              }
+          }).encode("utf-8")
+
+          req = urllib.request.Request(
+              "https://api.github.com/graphql",
+              data=payload,
+              headers={
+                  "Authorization": f"Bearer {token}",
+                  "Content-Type": "application/json",
+                  "User-Agent": "github-actions"
+              }
+          )
+
+          with urllib.request.urlopen(req) as response:
+              contribution_data = json.load(response)
+
+          weeks = contribution_data["data"]["user"][
+              "contributionsCollection"
+          ]["contributionCalendar"]["weeks"]
+
+          contribution_days = []
+
+          for week in weeks:
+              for day_data in week["contributionDays"]:
+                  contribution_days.append(day_data)
+
+          contribution_days.sort(
+              key=lambda x: x["date"]
+          )
+
+          contributions = {
+              item["date"]: item["contributionCount"]
+              for item in contribution_days
+          }
+
+          # ==========================================
+          # CURRENT STREAK
+          # ==========================================
+
+          current_streak = 0
+
+          current_day = date.today()
+
+          while contributions.get(
+              current_day.isoformat(), 0
+          ) > 0:
+
+              current_streak += 1
+
+              current_day -= timedelta(days=1)
+
+          # ==========================================
+          # LONGEST STREAK
+          # ==========================================
+
+          longest_streak = 0
+          running_streak = 0
+
+          for item in contribution_days:
+
+              if item["contributionCount"] > 0:
+
+                  running_streak += 1
+
+                  longest_streak = max(
+                      longest_streak,
+                      running_streak
+                  )
+
+              else:
+
+                  running_streak = 0
+
+          # ==========================================
+          # GAMING LEVEL
+          # ==========================================
+
+          level = max(
+              1,
+              commits // 25 + 1
+          )
+
+          xp = commits % 25
+
+          xp_percent = int(
+              (xp / 25) * 100
+          )
+
+          filled = round(
+              xp_percent / 10
+          )
+
+          empty = 10 - filled
+
+          bar = "█" * filled + "░" * empty
+
+          # ==========================================
+          # REPOSITORY STARS
+          # ==========================================
+
           stars = 0
           page = 1
 
           while True:
+
               data = api(
                   f"https://api.github.com/users/{username}/repos"
                   f"?per_page=100&page={page}"
@@ -80,196 +216,447 @@ jobs:
                   break
 
               for repo in data:
-                  stars += repo.get("stargazers_count", 0)
+
+                  stars += repo.get(
+                      "stargazers_count",
+                      0
+                  )
 
               if len(data) < 100:
                   break
 
               page += 1
 
-          # Progress bar
-          filled = round(xp_percent / 10)
-          empty = 10 - filled
+          # ==========================================
+          # LIGHT / CREAM GAMING CARD
+          # ==========================================
 
-          bar = "█" * filled + "░" * empty
-
-          svg = f'''<svg width="900" height="420"
-          viewBox="0 0 900 420"
+          svg = f'''<svg
+          width="900"
+          height="450"
+          viewBox="0 0 900 450"
           xmlns="http://www.w3.org/2000/svg">
 
           <defs>
-            <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stop-color="#0b1020"/>
-              <stop offset="100%" stop-color="#15152f"/>
+
+            <linearGradient
+              id="background"
+              x1="0"
+              y1="0"
+              x2="1"
+              y2="1">
+
+              <stop
+                offset="0%"
+                stop-color="#FFFDF7"/>
+
+              <stop
+                offset="100%"
+                stop-color="#F3E8D7"/>
+
             </linearGradient>
 
-            <linearGradient id="line" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stop-color="#00eaff"/>
-              <stop offset="100%" stop-color="#9b5cff"/>
+            <linearGradient
+              id="accent"
+              x1="0"
+              y1="0"
+              x2="1"
+              y2="0">
+
+              <stop
+                offset="0%"
+                stop-color="#B45309"/>
+
+              <stop
+                offset="100%"
+                stop-color="#D97706"/>
+
             </linearGradient>
+
           </defs>
 
-          <rect width="900" height="420" rx="25"
-                fill="url(#bg)"
-                stroke="#2d3655"
-                stroke-width="2"/>
 
-          <rect x="25" y="25" width="850" height="4"
-                rx="2"
-                fill="url(#line)"/>
+          <!-- BACKGROUND -->
 
-          <text x="55" y="85"
-                fill="#00eaff"
-                font-family="monospace"
-                font-size="30"
-                font-weight="bold">
+          <rect
+            width="900"
+            height="450"
+            rx="25"
+            fill="url(#background)"
+            stroke="#E4D5C3"
+            stroke-width="2"/>
+
+
+          <!-- TOP ACCENT -->
+
+          <rect
+            x="25"
+            y="25"
+            width="850"
+            height="5"
+            rx="3"
+            fill="url(#accent)"/>
+
+
+          <!-- TITLE -->
+
+          <text
+            x="55"
+            y="85"
+            fill="#92400E"
+            font-family="monospace"
+            font-size="30"
+            font-weight="bold">
+
             KARIBASU.EXE
+
           </text>
 
-          <text x="55" y="115"
-                fill="#777f9e"
-                font-family="monospace"
-                font-size="14">
+
+          <text
+            x="55"
+            y="115"
+            fill="#78716C"
+            font-family="monospace"
+            font-size="14">
+
             GITHUB DEVELOPER PROFILE
+
           </text>
 
-          <text x="55" y="170"
-                fill="#ffffff"
-                font-family="monospace"
-                font-size="20">
+
+          <!-- LEVEL -->
+
+          <text
+            x="55"
+            y="165"
+            fill="#57534E"
+            font-family="monospace"
+            font-size="18">
+
             LEVEL
+
           </text>
 
-          <text x="180" y="170"
-                fill="#00eaff"
-                font-family="monospace"
-                font-size="22"
-                font-weight="bold">
+
+          <text
+            x="190"
+            y="165"
+            fill="#B45309"
+            font-family="monospace"
+            font-size="21"
+            font-weight="bold">
+
             {level}
+
           </text>
 
-          <text x="55" y="210"
-                fill="#ffffff"
-                font-family="monospace"
-                font-size="20">
+
+          <!-- XP -->
+
+          <text
+            x="55"
+            y="200"
+            fill="#57534E"
+            font-family="monospace"
+            font-size="18">
+
             XP
+
           </text>
 
-          <text x="180" y="210"
-                fill="#9b5cff"
-                font-family="monospace"
-                font-size="18">
+
+          <text
+            x="190"
+            y="200"
+            fill="#92400E"
+            font-family="monospace"
+            font-size="17">
+
             {bar} {xp_percent}%
+
           </text>
 
-          <text x="55" y="260"
-                fill="#8c95b3"
-                font-family="monospace"
-                font-size="16">
+
+          <!-- COMMITS -->
+
+          <text
+            x="55"
+            y="240"
+            fill="#78716C"
+            font-family="monospace"
+            font-size="16">
+
             COMMITS
+
           </text>
 
-          <text x="180" y="260"
-                fill="#ffffff"
-                font-family="monospace"
-                font-size="18">
+
+          <text
+            x="190"
+            y="240"
+            fill="#292524"
+            font-family="monospace"
+            font-size="18">
+
             {commits}
+
           </text>
 
-          <text x="55" y="295"
-                fill="#8c95b3"
-                font-family="monospace"
-                font-size="16">
+
+          <!-- REPOSITORIES -->
+
+          <text
+            x="55"
+            y="275"
+            fill="#78716C"
+            font-family="monospace"
+            font-size="16">
+
             REPOSITORIES
+
           </text>
 
-          <text x="180" y="295"
-                fill="#ffffff"
-                font-family="monospace"
-                font-size="18">
+
+          <text
+            x="190"
+            y="275"
+            fill="#292524"
+            font-family="monospace"
+            font-size="18">
+
             {repos}
+
           </text>
 
-          <text x="55" y="330"
-                fill="#8c95b3"
-                font-family="monospace"
-                font-size="16">
+
+          <!-- STARS -->
+
+          <text
+            x="55"
+            y="310"
+            fill="#78716C"
+            font-family="monospace"
+            font-size="16">
+
             STARS
+
           </text>
 
-          <text x="180" y="330"
-                fill="#ffffff"
-                font-family="monospace"
-                font-size="18">
+
+          <text
+            x="190"
+            y="310"
+            fill="#292524"
+            font-family="monospace"
+            font-size="18">
+
             {stars}
+
           </text>
 
-          <text x="55" y="365"
-                fill="#8c95b3"
-                font-family="monospace"
-                font-size="16">
+
+          <!-- FOLLOWERS -->
+
+          <text
+            x="55"
+            y="345"
+            fill="#78716C"
+            font-family="monospace"
+            font-size="16">
+
             FOLLOWERS
+
           </text>
 
-          <text x="180" y="365"
-                fill="#ffffff"
-                font-family="monospace"
-                font-size="18">
+
+          <text
+            x="190"
+            y="345"
+            fill="#292524"
+            font-family="monospace"
+            font-size="18">
+
             {followers}
+
           </text>
 
-          <text x="570" y="185"
-                fill="#00eaff"
-                font-family="monospace"
-                font-size="18"
-                font-weight="bold">
+
+          <!-- CURRENT STREAK -->
+
+          <text
+            x="55"
+            y="400"
+            fill="#B45309"
+            font-family="monospace"
+            font-size="18"
+            font-weight="bold">
+
+            STREAK
+
+          </text>
+
+
+          <text
+            x="190"
+            y="400"
+            fill="#292524"
+            font-family="monospace"
+            font-size="18">
+
+            {current_streak} DAYS
+
+          </text>
+
+
+          <!-- RIGHT SIDE -->
+
+          <text
+            x="570"
+            y="175"
+            fill="#B45309"
+            font-family="monospace"
+            font-size="17"
+            font-weight="bold">
+
             CLASS
+
           </text>
 
-          <text x="570" y="220"
-                fill="#ffffff"
-                font-family="monospace"
-                font-size="22">
+
+          <text
+            x="570"
+            y="210"
+            fill="#292524"
+            font-family="monospace"
+            font-size="21">
+
             JAVA / BACKEND
+
           </text>
 
-          <text x="570" y="280"
-                fill="#00eaff"
-                font-family="monospace"
-                font-size="18"
-                font-weight="bold">
+
+          <!-- STATUS -->
+
+          <text
+            x="570"
+            y="270"
+            fill="#B45309"
+            font-family="monospace"
+            font-size="17"
+            font-weight="bold">
+
             STATUS
+
           </text>
 
-          <text x="570" y="315"
-                fill="#ffffff"
-                font-family="monospace"
-                font-size="22">
+
+          <text
+            x="570"
+            y="305"
+            fill="#292524"
+            font-family="monospace"
+            font-size="21">
+
             BUILDING...
+
           </text>
 
-          <circle cx="555" cy="308" r="6"
-                  fill="#00ff88"/>
 
-          <text x="570" y="350"
-                fill="#777f9e"
-                font-family="monospace"
-                font-size="13">
+          <!-- ONLINE DOT -->
+
+          <circle
+            cx="555"
+            cy="298"
+            r="6"
+            fill="#16A34A"/>
+
+
+          <!-- LONGEST STREAK -->
+
+          <text
+            x="570"
+            y="350"
+            fill="#78716C"
+            font-family="monospace"
+            font-size="13">
+
+            LONGEST STREAK:
+
+          </text>
+
+
+          <text
+            x="570"
+            y="372"
+            fill="#292524"
+            font-family="monospace"
+            font-size="16"
+            font-weight="bold">
+
+            {longest_streak} DAYS
+
+          </text>
+
+
+          <!-- SYSTEM -->
+
+          <text
+            x="570"
+            y="405"
+            fill="#A8A29E"
+            font-family="monospace"
+            font-size="12">
+
             SYSTEM ONLINE
+
           </text>
+
 
           </svg>'''
 
-          os.makedirs("dist", exist_ok=True)
+          # ==========================================
+          # SAVE SVG
+          # ==========================================
 
-          with open("dist/gaming-status.svg", "w", encoding="utf-8") as f:
-              f.write(svg)
+          os.makedirs(
+              "dist",
+              exist_ok=True
+          )
 
-          print("Gaming status generated successfully.")
+          with open(
+              "dist/gaming-status.svg",
+              "w",
+              encoding="utf-8"
+          ) as file:
+
+              file.write(svg)
+
+          print(
+              "Gaming status generated successfully."
+          )
+
+          print(
+              "Current streak:",
+              current_streak
+          )
+
+          print(
+              "Longest streak:",
+              longest_streak
+          )
+
+
+      # ==========================================
+      # PUBLISH TO SEPARATE BRANCH
+      # ==========================================
 
       - name: Publish Gaming Card
         uses: peaceiris/actions-gh-pages@v4
+
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+
           publish_branch: profile-assets
+
           publish_dir: ./dist
