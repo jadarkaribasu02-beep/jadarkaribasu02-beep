@@ -23,6 +23,14 @@
 
 </p>
 
+<p align="center">
+  <img
+    src="https://raw.githubusercontent.com/jadarkaribasu02-beep/jadarkaribasu02-beep/profile-assets/gaming-status.svg"
+    width="900"
+    alt="Karibasu GitHub Status"
+  >
+</p>
+
 
 
 ![GitHub Contribution Snake](https://raw.githubusercontent.com/jadarkaribasu02-beep/jadarkaribasu02-beep/gh-pages/github-contribution-grid-snake.svg)
