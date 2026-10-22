@@ -15,21 +15,9 @@
 - 🧠 Practicing DSA
 - 🚀 Building projects and learning every day
 
-## 🛠️ Skills
 
-<p align="center">
 
-<img src="https://skillicons.dev/icons?i=java,python,html,css,js,git,github,vscode,mysql,spring" />
 
-</p>
-
-<p align="center">
-  <img
-    src="https://raw.githubusercontent.com/jadarkaribasu02-beep/jadarkaribasu02-beep/profile-assets/gaming-status.svg"
-    width="900"
-    alt="Karibasu GitHub Status"
-  >
-</p>
 
 <h2 align="center">🛠️ Tech Stack</h2>
 
