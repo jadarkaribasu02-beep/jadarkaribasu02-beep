@@ -29,20 +29,8 @@ Visit my repository for important coding formulas, programming logic, and DSA co
 
 👉 [Explore Coding Formulas & DSA](https://github.com/jadarkaribasu02-beep/Data-structure-and-application)
 
-## 📊 GitHub Stats
 
-<p align="center">
-  <img
-    src="https://github-readme-stats.vercel.app/api?username=jadarkaribasu02-beep&show_icons=true&hide_border=true&bg_color=FFFDF9&title_color=92400E&text_color=4A382D&icon_color=B45309"
-    height="180"
-  />
-  <img
-    src="https://github-readme-stats.vercel.app/api/top-langs/?username=jadarkaribasu02-beep&layout=compact&hide_border=true&bg_color=FFFDF9&title_color=92400E&text_color=4A382D"
-    height="180"
-  />
-</p>
-
-## 🐍 Contribution Snake
+## 📈 Contribution Activity
 
 ![GitHub Contribution Snake](https://raw.githubusercontent.com/jadarkaribasu02-beep/jadarkaribasu02-beep/gh-pages/github-contribution-grid-snake.svg)
 
