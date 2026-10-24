@@ -11,7 +11,7 @@
 - ☕ Currently learning Java
 - 🌱 Exploring Spring Boot and Backend Development
 - 🧠 Practicing Data Structures and Algorithms (DSA)
-- 🚀 Building projects and learning every day
+
 
 ## 🛠️ Tech Stack
 
@@ -39,6 +39,21 @@
     <img src="https://img.shields.io/badge/HackerRank-Visit_Profile-00EA64?style=for-the-badge&logo=hackerrank&logoColor=black" alt="HackerRank Profile" />
   </a>
 </p>
+
+## 🚀 Codeforces Beginner Sheet
+
+<p align="center">
+  <a href="https://codeforces.com/group/MWSDmqGsZm/contest/219774">
+    <img src="https://img.shields.io/badge/⭐_START_HERE-Codeforces_Beginner_Sheet-00BFFF?style=for-the-badge&logo=codeforces&logoColor=white" alt="Codeforces Beginner Sheet" />
+  </a>
+</p>
+
+<p align="center">
+  <b>Start with the basics. Solve problems. Build strong logic.</b>
+</p>
+
+👉 [**Open the Codeforces Beginner Sheet**](https://codeforces.com/group/MWSDmqGsZm/contest/219774)
+
 
 ## 📚 Coding Formulas & DSA
 
