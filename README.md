@@ -70,3 +70,21 @@ Visit my repository for important coding formulas, programming logic, and DSA co
 <p align="center">
   🌱 Learning consistently | 💻 Building projects | 🚀 Improving one problem at a time
 </p>
+
+---
+
+<div align="center">
+
+### ⚡ EXPLORE • EXPERIMENT • ENGINEER ⚡
+
+*Turning curiosity into code, and ideas into reality.*
+
+<br/>
+
+**Always Learning. Always Building. Never Stopping.** 🚀
+
+<br/>
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:667eea,50:764ba2,100:6dd5ed&height=120&section=footer&animation=fadeIn" width="100%"/>
+
+</div>
